@@ -18,8 +18,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createClient } from "@supabase/supabase-js";
 
 // Configuración del cliente Supabase
-const supabaseUrl = "https://ebiixgaozmvwihiebyln.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViaWl4Z2Fvem12d2loaWVieWxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTg4ODAsImV4cCI6MjA3NDQzNDg4MH0.AE5XbrES7C5fFLueER6jlLDYIwOShYCsCnmIlOkJYL0";
+const supabaseUrl = "https://donotyisbtmitahlyxun.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvbm90eWlzYnRtaXRhaGx5eHVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyNjk4MjksImV4cCI6MjA1MDg0NTgyOX0.MQEhRTpp2wpH8C3G1CBNSIIu4HebK0Oh-WY2v8OLr44";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface Image {
@@ -42,13 +42,21 @@ const GridComponent = () => {
   const fetchImages = useCallback(async () => {
     try {
       console.log("Fetching images from Supabase...");
+      console.log("Bucket name: greek_bucket");
       const { data, error } = await supabase.storage
-        .from("gallery")
+        .from("greek_bucket")
         .list("", { limit: 1000 });
 
       if (error) {
-        console.error("Error al obtener imágenes:", error);
+        console.error("ERROR CRÍTICO - Error al obtener imágenes:", error);
+        console.error("Error message:", error.message);
+        console.error("Error details:", JSON.stringify(error, null, 2));
         return [];
+      }
+
+      if (!data || data.length === 0) {
+        console.warn("ADVERTENCIA: Supabase devolvió data vacío o null");
+        console.warn("Data:", data);
       }
 
       console.log("Raw data from Supabase:", data);
@@ -63,10 +71,10 @@ const GridComponent = () => {
 
       const imagePromises = validFiles.map((file) => {
         const { data: publicUrlData } = supabase.storage
-          .from("gallery")
+          .from("greek_bucket")
           .getPublicUrl(file.name);
 
-        const expectedUrl = `https://ebiixgaozmvwihiebyln.supabase.co/storage/v1/object/public/gallery/${file.name}`;
+        const expectedUrl = `https://donotyisbtmitahlyxun.supabase.co/storage/v1/object/public/greek_bucket/${file.name}`;
         console.log(`File: ${file.name}`);
         console.log(`Generated URL: ${publicUrlData?.publicUrl}`);
         console.log(`Expected URL: ${expectedUrl}`);
