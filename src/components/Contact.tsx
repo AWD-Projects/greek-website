@@ -1,6 +1,6 @@
 "use client";
 
-import { Eyebrow, Reveal, SplitTitle } from "./Motion";
+import { Reveal, SplitTitle } from "./Motion";
 import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
 import { SITE, SOCIALS } from "@/data/site";
 import { track } from "@/lib/analytics";
@@ -10,8 +10,7 @@ export default function Contact() {
   const WA = SOCIAL_ICONS.whatsapp;
   return (
     <section id="contacto" className="section-y wrap relative">
-      <Eyebrow index="07">Contacto</Eyebrow>
-      <SplitTitle lines={["Follow me"]} className="t-section mt-5" />
+      <SplitTitle lines={["Follow me"]} className="t-section" />
       <Reveal delay={0.1} className="mt-6 max-w-[40ch]">
         <p className="text-[1.02rem] leading-relaxed text-white/85 md:text-[1.12rem]">
           Escríbeme directo por Instagram o WhatsApp y cuéntame de tu evento.
@@ -28,8 +27,8 @@ export default function Contact() {
           className="group flex items-end justify-between gap-6 border-y border-neon/70 py-6 transition hover:bg-neon md:py-9"
         >
           <span className="min-w-0">
-            <span className="eyebrow block transition group-hover:text-black">Mensaje directo en Instagram</span>
-            <span className="display mt-3 block truncate text-[clamp(2.3rem,8.5vw,7rem)] transition group-hover:text-black">{SITE.instagramHandle}</span>
+            <span className="sr-only">Mensaje directo en Instagram: </span>
+            <span className="display block truncate text-[clamp(2.3rem,8.5vw,7rem)] transition group-hover:text-black">{SITE.instagramHandle}</span>
           </span>
           <ArrowUpRight className="mb-2 h-10 w-10 shrink-0 text-neon transition group-hover:text-black md:h-16 md:w-16" />
         </a>
@@ -48,7 +47,6 @@ export default function Contact() {
       </Reveal>
 
       <Reveal delay={0.1} className="mt-12 md:mt-16">
-        <p className="eyebrow mb-6">Sígueme y escúchame</p>
         <ul className="grid gap-x-16 md:grid-cols-2">
           {SOCIALS.map((s) => {
             const Icon = SOCIAL_ICONS[s.id];

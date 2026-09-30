@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { Eyebrow, SplitTitle } from "./Motion";
+import { SplitTitle } from "./Motion";
 import { GALLERY } from "@/data/gallery";
 
 const INITIAL = 12;
@@ -31,8 +31,7 @@ export default function Gallery() {
   return (
     <section id="galeria" className="section-y relative">
       <div className="wrap">
-        <Eyebrow index="05">Galería</Eyebrow>
-        <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-4">
           <SplitTitle lines={["Galería"]} className="t-section" />
           <p className="text-[0.75rem] font-medium uppercase tracking-[0.22em] text-white/70 tabular-nums">
             {shown.length} / {GALLERY.length} fotos

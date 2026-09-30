@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Eyebrow, ParallaxFrame, Reveal, SplitTitle } from "./Motion";
+import { ParallaxFrame, Reveal, SplitTitle } from "./Motion";
 import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
 
 const SPOTIFY = "https://open.spotify.com/show/66U9IcPCTGj6DiL3JvfxlQ";
@@ -12,8 +12,7 @@ export default function Podcast() {
     <section id="podcast" className="section-y relative border-t border-white/10 bg-ink-2">
       <div className="grid grid-cols-12 items-center gap-x-5 gap-y-14 md:gap-x-10">
         <div className="wrap col-span-12 md:order-2 md:col-span-6 lg:col-span-7 md:pl-0">
-          <Eyebrow index="06">Podcast</Eyebrow>
-          <SplitTitle lines={["Omega Sessions", "Podcast"]} className="t-section mt-5" lineClassName={["", "text-neon"]} />
+          <SplitTitle lines={["Omega Sessions", "Podcast"]} className="t-section" lineClassName={["", "text-neon"]} />
           <Reveal delay={0.1} className="mt-8 max-w-[52ch]">
             <p className="text-[1.02rem] leading-[1.75] text-white/85 md:text-[1.12rem]">
               Omega Sessions - Podcast es el espacio donde la música y las historias se unen. Cada episodio te lleva a la historia detrás de cada artista invitado, detrás de sus cabinas y sus personajes.

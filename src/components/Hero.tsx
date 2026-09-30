@@ -42,14 +42,6 @@ export default function Hero() {
       <div className="wrap grid min-h-[calc(100svh-9.25rem)] grid-cols-1 gap-x-10 pb-10 pt-24 lg:grid-cols-12 lg:grid-rows-[1fr_auto] lg:items-center lg:pb-8 lg:pt-20">
         {/* A. Nombre */}
         <motion.div style={reduce ? undefined : { y: textY }} className="relative z-10 lg:col-span-7 lg:row-start-1 lg:self-end">
-          <motion.p
-            className="eyebrow mb-3 md:mb-4"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: d(0.2), duration: d(0.8) }}
-          >
-            House · Open Format
-          </motion.p>
           <h1 className="display text-[clamp(4.6rem,24vw,8rem)] leading-[0.8] lg:text-[clamp(5.5rem,10vw,9.5rem)]">
             <span className="mb-2 block text-[0.2em] font-semibold leading-none tracking-[0.34em] text-neon">
               <motion.span className="inline-block" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: d(0.3), duration: d(0.8) }}>DJ</motion.span>

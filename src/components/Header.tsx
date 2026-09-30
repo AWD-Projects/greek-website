@@ -46,7 +46,7 @@ export default function Header() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-500",
-        scrolled ? "border-b border-white/15 bg-black/90" : "border-b border-transparent bg-transparent"
+        scrolled ? "border-b border-white/15 bg-black/95" : "border-b border-transparent bg-transparent"
       )}
     >
       <div className="wrap flex h-16 items-center justify-between md:h-[4.5rem]">
@@ -125,7 +125,6 @@ export default function Header() {
                             onClick={go(n.id)}
                             className="display flex items-baseline gap-4 border-b border-white/10 py-3 text-[clamp(2.6rem,13vw,4.5rem)] transition-colors active:text-neon"
                           >
-                            <span className="eyebrow tabular-nums">{String(idx + 1).padStart(2, "0")}</span>
                             {n.label}
                           </a>
                         ))}

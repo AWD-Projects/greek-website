@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Eyebrow, ParallaxFrame, Reveal, SplitTitle } from "./Motion";
+import { ParallaxFrame, Reveal, SplitTitle } from "./Motion";
 import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
 import { PACKAGES, type Package } from "@/data/packages";
 import { SITE, whatsappLink } from "@/data/site";
@@ -88,8 +88,7 @@ function Panel({ pkg, index }: { pkg: Package; index: number }) {
       </ParallaxFrame>
       <div className="wrap flex flex-1 flex-col py-9 md:py-12">
         <Reveal>
-          <p className="eyebrow tabular-nums">Paquete {String(index + 1).padStart(2, "0")}</p>
-          <h3 className="display mt-3 text-[clamp(2.3rem,4.4vw,4rem)]">{pkg.name}</h3>
+          <h3 className="display text-[clamp(2.3rem,4.4vw,4rem)]">{pkg.name}</h3>
           <p className="mt-5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
             <span className="neon-text text-[clamp(2.6rem,4.6vw,3.8rem)] font-extrabold leading-none tracking-tight">{pkg.price}</span>
             <span className="text-[0.8rem] font-medium uppercase tracking-[0.2em] text-white/75">MXN · {pkg.unit}</span>
@@ -99,9 +98,9 @@ function Panel({ pkg, index }: { pkg: Package; index: number }) {
         {/* La lista se estira para que ambos paquetes terminen a la misma altura y los botones queden alineados */}
         <Reveal delay={0.08} className="mt-8 flex flex-1 flex-col">
           <ol className="flex flex-1 flex-col border-t border-white/15">
-            {pkg.items.map((t, i) => (
-              <li key={t} className="grid flex-1 grid-cols-[2.25rem_1fr] items-center gap-3 border-b border-white/15 py-4 text-[1rem] leading-relaxed text-white/90 md:text-[1.05rem]">
-                <span className="eyebrow tabular-nums !tracking-[0.12em]">{String(i + 1).padStart(2, "0")}</span>
+            {pkg.items.map((t) => (
+              <li key={t} className="grid flex-1 grid-cols-[1.5rem_1fr] items-center gap-3 border-b border-white/15 py-4 text-[1rem] leading-relaxed text-white/90 md:text-[1.05rem]">
+                <span aria-hidden className="mt-[0.75em] h-px w-4 bg-neon" />
                 <span>{t}</span>
               </li>
             ))}
@@ -138,8 +137,7 @@ export default function Services() {
   return (
     <section id="servicios" className="relative">
       <div className="wrap section-y !pb-10 md:!pb-14">
-        <Eyebrow index="03">Servicios</Eyebrow>
-        <SplitTitle lines={["Your way", "with Greek"]} className="t-section mt-5" lineClassName={["", "text-neon"]} />
+        <SplitTitle lines={["Your way", "with Greek"]} className="t-section" lineClassName={["", "text-neon"]} />
       </div>
       <div className="grid border-y border-white/15 lg:grid-cols-2">
         {PACKAGES.map((p, i) => (

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Eyebrow, SplitTitle } from "./Motion";
+import { SplitTitle } from "./Motion";
 import { VENUES } from "@/data/venues";
 
 /** Cada nombre se "llena" de neón de izquierda a derecha al cruzar el centro de la pantalla. */
@@ -12,7 +12,6 @@ function Row({ name, index }: { name: string; index: number }) {
   const clip = useTransform(scrollYProgress, [0, 1], ["inset(0 100% 0 0)", "inset(0 0% 0 0)"]);
   return (
     <li ref={ref} className="group relative flex items-baseline gap-4 border-b border-white/15 py-3 md:gap-6 md:py-3.5">
-      <span className="eyebrow w-8 shrink-0 tabular-nums !tracking-[0.18em] text-white/60">{String(index + 1).padStart(2, "0")}</span>
       <span className="relative block min-w-0">
         <span className="display dim-text block text-[clamp(1.45rem,2.9vw,2.9rem)] leading-[1.06]">{name}</span>
         <motion.span
@@ -32,8 +31,7 @@ export default function Venues() {
   const cols = [VENUES.slice(0, half), VENUES.slice(half)];
   return (
     <section id="cabinas" className="section-y wrap relative border-y border-white/10 bg-ink-2">
-      <Eyebrow index="02">Cabinas</Eyebrow>
-      <SplitTitle lines={["Donde", "ha sonado"]} className="t-section mt-5" lineClassName={["", "text-neon"]} />
+      <SplitTitle lines={["Donde", "ha sonado"]} className="t-section" lineClassName={["", "text-neon"]} />
       <div className="section-gap grid gap-x-16 md:grid-cols-2">
         {cols.map((col, c) => (
           <ol key={c} className="border-t border-white/15">

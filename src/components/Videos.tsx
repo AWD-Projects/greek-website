@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Eyebrow, Reveal, SplitTitle } from "./Motion";
+import { Reveal, SplitTitle } from "./Motion";
 import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
 import { CHANNEL, VIDEOS } from "@/data/videos";
 import { track } from "@/lib/analytics";
@@ -37,8 +37,7 @@ export default function Videos() {
 
   return (
     <section id="videos" className="section-y wrap relative">
-      <Eyebrow index="04">Videos</Eyebrow>
-      <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
         <SplitTitle lines={["Videos"]} className="t-section" />
         <Reveal className="flex flex-wrap items-center gap-x-8 gap-y-4">
           <div className="flex items-center gap-4">

@@ -28,7 +28,7 @@ export default function Footer() {
       <div className="wrap flex flex-col gap-3 border-t border-white/15 pb-24 pt-5 lg:pb-5 text-[0.75rem] uppercase tracking-[0.16em] text-white/75 md:flex-row md:items-center md:justify-between">
         <p>© {new Date().getFullYear()} DJ Greek</p>
         <a href={SITE.builderUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
-          Desarrollado por <span className="font-bold text-neon">Amoxtli Web Developers</span>
+          Desarrollado por <span className="font-bold text-neon">AMOXTLI<sup className="ml-0.5 text-[0.7em]">®</sup></span>
         </a>
         <a href={SITE.privacyUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
           Aviso de privacidad

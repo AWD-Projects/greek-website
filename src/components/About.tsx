@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Eyebrow, ParallaxFrame, Reveal, ScrollText, SplitTitle } from "./Motion";
+import { ParallaxFrame, Reveal, ScrollText, SplitTitle } from "./Motion";
 
 const FACTS = [
   { k: "Estilo", v: "House · Open Format" },
@@ -29,8 +29,7 @@ export default function About() {
         </div>
 
         <div className="col-span-12 lg:col-span-7">
-          <Eyebrow index="01">Sobre</Eyebrow>
-          <SplitTitle lines={["¿Quién es", "DJ Greek?"]} className="t-section mt-5" lineClassName={["", "text-neon"]} />
+          <SplitTitle lines={["¿Quién es", "DJ Greek?"]} className="t-section" lineClassName={["", "text-neon"]} />
 
           <ScrollText
             className="mt-8 max-w-[60ch] text-[1.02rem] leading-[1.75] text-white md:mt-10 md:text-[1.12rem]"
