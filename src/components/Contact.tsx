@@ -11,14 +11,14 @@ export default function Contact() {
   return (
     <section id="contacto" className="section-y wrap relative">
       <Eyebrow index="07">Contacto</Eyebrow>
-      <SplitTitle lines={["Follow me"]} className="mt-6 text-[clamp(3.6rem,12vw,11.5rem)]" />
-      <Reveal delay={0.1} className="mt-8 max-w-[40ch]">
-        <p className="text-[1.05rem] leading-relaxed text-white/85 md:text-[1.2rem]">
+      <SplitTitle lines={["Follow me"]} className="t-section mt-5" />
+      <Reveal delay={0.1} className="mt-6 max-w-[40ch]">
+        <p className="text-[1.02rem] leading-relaxed text-white/85 md:text-[1.12rem]">
           Escríbeme directo por Instagram o WhatsApp y cuéntame de tu evento.
         </p>
       </Reveal>
 
-      <Reveal delay={0.1} className="mt-14 md:mt-20">
+      <Reveal delay={0.1} className="section-gap">
         <a
           href={SITE.instagramDm}
           target="_blank"
@@ -29,9 +29,9 @@ export default function Contact() {
         >
           <span className="min-w-0">
             <span className="eyebrow block transition group-hover:text-black">Mensaje directo en Instagram</span>
-            <span className="display mt-3 block truncate text-[clamp(2.6rem,10vw,9.5rem)] transition group-hover:text-black">{SITE.instagramHandle}</span>
+            <span className="display mt-3 block truncate text-[clamp(2.3rem,8.5vw,7rem)] transition group-hover:text-black">{SITE.instagramHandle}</span>
           </span>
-          <ArrowUpRight className="mb-2 h-10 w-10 shrink-0 text-neon transition group-hover:text-black md:h-20 md:w-20" />
+          <ArrowUpRight className="mb-2 h-10 w-10 shrink-0 text-neon transition group-hover:text-black md:h-16 md:w-16" />
         </a>
         <a
           href={SITE.whatsapp}
@@ -47,7 +47,7 @@ export default function Contact() {
         </a>
       </Reveal>
 
-      <Reveal delay={0.1} className="mt-16 md:mt-24">
+      <Reveal delay={0.1} className="mt-12 md:mt-16">
         <p className="eyebrow mb-6">Sígueme y escúchame</p>
         <ul className="grid gap-x-16 md:grid-cols-2">
           {SOCIALS.map((s) => {

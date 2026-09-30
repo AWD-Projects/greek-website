@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ElementType, type ReactNode } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -85,4 +85,70 @@ export function Eyebrow({ index, children }: { index: string; children: ReactNod
       <span>{children}</span>
     </p>
   );
+}
+
+/** Imagen con revelado por máscara y parallax ligado al scroll. El contenedor debe tener tamaño propio (aspect/alto). */
+export function ParallaxFrame({
+  children,
+  className,
+  amount = 9,
+  reveal = true,
+}: {
+  children: ReactNode;
+  className?: string;
+  amount?: number;
+  reveal?: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const inView = useInView(ref, { once: true, margin: "0px 0px -6% 0px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [`-${amount}%`, `${amount}%`]);
+  const show = !reveal || inView;
+  return (
+    <motion.div
+      ref={ref}
+      className={cn("relative overflow-hidden", className)}
+      initial={{ clipPath: "inset(0 0 100% 0)" }}
+      animate={{ clipPath: show ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)" }}
+      transition={{ duration: reduce ? 0 : 1.1, ease: EASE }}
+    >
+      <motion.div className="absolute inset-[-12%]" style={reduce ? undefined : { y }}>
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/** Párrafo que se enciende palabra por palabra al hacer scroll. El texto completo sigue en el DOM. */
+export function ScrollText({ text, className }: { text: string; className?: string }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 55%"] });
+  const words = text.split(" ");
+  return (
+    <p ref={ref} className={className}>
+      {words.map((w, i) => (
+        <Word key={i} w={w} i={i} n={words.length} p={scrollYProgress} off={!!reduce} />
+      ))}
+    </p>
+  );
+}
+
+function Word({ w, i, n, p, off }: { w: string; i: number; n: number; p: MotionValue<number>; off: boolean }) {
+  const start = i / n;
+  const opacity = useTransform(p, [start, Math.min(start + 1.5 / n, 1)], [0.55, 1]);
+  return (
+    <>
+      <motion.span style={off ? undefined : { opacity }}>{w}</motion.span>
+      {i < n - 1 ? " " : ""}
+    </>
+  );
+}
+
+/** Línea de progreso de lectura, bajo el header. */
+export function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, mass: 0.3 });
+  return <motion.div aria-hidden className="fixed inset-x-0 top-0 z-[51] h-[2px] origin-left bg-neon" style={{ scaleX }} />;
 }

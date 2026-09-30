@@ -8,7 +8,7 @@ import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
 import { CHANNEL, VIDEOS } from "@/data/videos";
 import { track } from "@/lib/analytics";
 
-function Thumb({ i, big, onOpen }: { i: number; big?: boolean; onOpen: (i: number) => void }) {
+function Thumb({ i, onOpen }: { i: number; onOpen: (i: number) => void }) {
   const v = VIDEOS[i];
   return (
     <button
@@ -18,7 +18,7 @@ function Thumb({ i, big, onOpen }: { i: number; big?: boolean; onOpen: (i: numbe
       aria-label={`Reproducir video ${i + 1} de DJ Greek`}
       className="duotone group relative block aspect-video w-full overflow-hidden text-left"
     >
-      <Image src={v.thumb} alt={v.alt} fill sizes={big ? "(min-width: 1024px) 58vw, 100vw" : "(min-width: 1024px) 34vw, 100vw"} className="object-cover group-hover:scale-[1.04]" />
+      <Image src={v.thumb} alt={v.alt} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover group-hover:scale-[1.04]" />
       <span aria-hidden className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
       <span className="absolute bottom-4 left-4 z-20 flex items-center gap-3">
         <span aria-hidden className="grid h-11 w-11 place-items-center border border-neon bg-black/50 text-neon transition group-hover:bg-neon group-hover:text-black">
@@ -38,9 +38,9 @@ export default function Videos() {
   return (
     <section id="videos" className="section-y wrap relative">
       <Eyebrow index="04">Videos</Eyebrow>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-x-10 gap-y-8">
-        <SplitTitle lines={["Videos"]} className="text-[clamp(3.2rem,9.5vw,9rem)]" />
-        <Reveal className="flex flex-wrap items-center gap-x-8 gap-y-5">
+      <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
+        <SplitTitle lines={["Videos"]} className="t-section" />
+        <Reveal className="flex flex-wrap items-center gap-x-8 gap-y-4">
           <div className="flex items-center gap-4">
             <Image src="/images/videos/channel.webp" alt="Foto de perfil del canal de DJ Greek" width={56} height={56} className="h-14 w-14 rounded-full" />
             <p className="text-xl font-extrabold uppercase tracking-tight">{CHANNEL.name}</p>
@@ -49,7 +49,7 @@ export default function Videos() {
             {CHANNEL.stats.map((s) => (
               <div key={s.label}>
                 <dt className="sr-only">{s.label}</dt>
-                <dd className="text-2xl font-extrabold tabular-nums text-neon md:text-3xl">{s.value}</dd>
+                <dd className="text-2xl font-extrabold tabular-nums text-neon">{s.value}</dd>
                 <p aria-hidden className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/70">{s.label}</p>
               </div>
             ))}
@@ -65,17 +65,12 @@ export default function Videos() {
         </Reveal>
       </div>
 
-      <div className="mt-14 grid gap-1 md:mt-20 lg:grid-cols-12">
-        <Reveal className="lg:col-span-7">
-          <Thumb i={0} big onOpen={setCurrent} />
-        </Reveal>
-        <div className="grid gap-1 lg:col-span-5">
-          {[1, 2, 3].map((i) => (
-            <Reveal key={i} delay={i * 0.08}>
-              <Thumb i={i} onOpen={setCurrent} />
-            </Reveal>
-          ))}
-        </div>
+      <div className="section-gap grid gap-2 sm:grid-cols-2 md:gap-3">
+        {VIDEOS.map((_, i) => (
+          <Reveal key={i} delay={(i % 2) * 0.1} y={28}>
+            <Thumb i={i} onOpen={setCurrent} />
+          </Reveal>
+        ))}
       </div>
 
       <Dialog.Root open={current !== null} onOpenChange={(o) => !o && setCurrent(null)}>

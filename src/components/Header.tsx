@@ -52,10 +52,10 @@ export default function Header() {
       <div className="wrap flex h-16 items-center justify-between md:h-[4.5rem]">
         <a href="#inicio" onClick={go("inicio")} className="flex items-center gap-3" aria-label="DJ Greek, ir al inicio">
           <Image src="/images/brand/logo.webp" alt="" width={48} height={48} className="h-10 w-10 rounded-full md:h-12 md:w-12" priority />
-          <span className="text-2xl font-extrabold uppercase tracking-tight text-neon md:text-[1.7rem]">DJ Greek</span>
+          <span className="whitespace-nowrap text-2xl font-extrabold uppercase tracking-tight text-neon md:text-[1.7rem]">DJ Greek</span>
         </a>
 
-        <nav aria-label="Principal" className="hidden items-center gap-9 lg:flex">
+        <nav aria-label="Principal" className="hidden items-center gap-8 xl:flex">
           {NAV.map((n) => (
             <a
               key={n.id}
@@ -90,7 +90,7 @@ export default function Header() {
 
           <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Trigger
-              className="grid h-11 w-11 place-items-center border border-white/30 lg:hidden"
+              className="grid h-11 w-11 place-items-center border border-white/30 xl:hidden"
               aria-label="Abrir menú"
             >
               <span aria-hidden className="flex flex-col gap-[6px]">

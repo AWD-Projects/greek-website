@@ -11,12 +11,14 @@ import Footer from "@/components/Footer";
 import MobileBar from "@/components/MobileBar";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
+import { ScrollProgress } from "@/components/Motion";
 
 export default function Home() {
   return (
     <>
       <SmoothScroll />
       <Cursor />
+      <ScrollProgress />
       <Header />
       <main>
         <Hero />

@@ -32,38 +32,36 @@ export default function Gallery() {
     <section id="galeria" className="section-y relative">
       <div className="wrap">
         <Eyebrow index="05">Galería</Eyebrow>
-        <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-          <SplitTitle lines={["Galería"]} className="text-[clamp(3.2rem,9.5vw,9rem)]" />
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+          <SplitTitle lines={["Galería"]} className="t-section" />
           <p className="text-[0.75rem] font-medium uppercase tracking-[0.22em] text-white/70 tabular-nums">
             {shown.length} / {GALLERY.length} fotos
           </p>
         </div>
       </div>
 
-      <ul className="mt-14 columns-2 gap-1 md:mt-20 lg:columns-3 xl:columns-4 [&>li]:mb-1">
+      <ul className="wrap section-gap grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4">
         {shown.map((p, i) => (
           <motion.li
             key={p.src}
-            className="break-inside-avoid"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "0px 0px -6% 0px" }}
-            transition={{ duration: 0.7, delay: (i % 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 28, clipPath: "inset(12% 0 0 0)" }}
+            whileInView={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
+            viewport={{ once: true, margin: "0px 0px -4% 0px" }}
+            transition={{ duration: 0.8, delay: (i % 4) * 0.07, ease: [0.16, 1, 0.3, 1] }}
           >
             <button
               type="button"
               onClick={() => setOpen(i)}
               data-cursor="VER"
               aria-label={`Ampliar foto ${i + 1}: ${p.alt}`}
-              className="duotone group block w-full overflow-hidden"
+              className="duotone group relative block aspect-[4/5] w-full overflow-hidden"
             >
               <Image
                 src={p.src}
                 alt={p.alt}
-                width={p.w}
-                height={p.h}
-                sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw"
-                className="h-auto w-full group-hover:scale-[1.04]"
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                className="object-cover group-hover:scale-[1.05]"
               />
             </button>
           </motion.li>
@@ -71,7 +69,7 @@ export default function Gallery() {
       </ul>
 
       {GALLERY.length > INITIAL && (
-        <div className="wrap mt-10 flex justify-center">
+        <div className="wrap mt-8 flex justify-center md:mt-10">
           <button
             type="button"
             onClick={() => setAll((v) => !v)}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Eyebrow, Reveal, SplitTitle } from "./Motion";
+import { Eyebrow, ParallaxFrame, Reveal, SplitTitle } from "./Motion";
 import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
 import { PACKAGES, type Package } from "@/data/packages";
 import { SITE, whatsappLink } from "@/data/site";
@@ -18,7 +18,7 @@ function SpecDialog({ pkg }: { pkg: Package }) {
     <Dialog.Root>
       <Dialog.Trigger
         onClick={() => track("open_specs", { plan: pkg.name })}
-        className="inline-flex h-14 items-center gap-2 border border-white/35 px-6 text-[0.78rem] font-bold uppercase tracking-[0.16em] transition hover:border-neon hover:text-neon"
+        className="inline-flex h-14 items-center justify-center gap-2 border border-white/35 px-6 text-[0.78rem] font-bold uppercase tracking-[0.16em] transition hover:border-neon hover:text-neon max-sm:col-span-1"
       >
         Más info
       </Dialog.Trigger>
@@ -83,37 +83,38 @@ function Panel({ pkg, index }: { pkg: Package; index: number }) {
   const WA = SOCIAL_ICONS.whatsapp;
   return (
     <article className="flex flex-col border-white/15 lg:border-l first:lg:border-l-0">
-      <div className="duotone relative aspect-[4/3] w-full overflow-hidden lg:aspect-[16/11]" data-cursor="Ver">
+      <ParallaxFrame className="duotone aspect-[16/9] w-full" amount={8}>
         <Image src={pkg.image} alt={pkg.imageAlt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-      </div>
-      <div className="wrap flex flex-1 flex-col py-10 md:py-14">
+      </ParallaxFrame>
+      <div className="wrap flex flex-1 flex-col py-9 md:py-12">
         <Reveal>
           <p className="eyebrow tabular-nums">Paquete {String(index + 1).padStart(2, "0")}</p>
-          <h3 className="display mt-4 text-[clamp(2.6rem,6vw,5.4rem)]">{pkg.name}</h3>
-          <p className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <span className="neon-text text-[clamp(3rem,6vw,5rem)] font-extrabold leading-none tracking-tight">{pkg.price}</span>
-            <span className="text-sm font-medium uppercase tracking-[0.22em] text-white/75">MXN · {pkg.unit}</span>
+          <h3 className="display mt-3 text-[clamp(2.3rem,4.4vw,4rem)]">{pkg.name}</h3>
+          <p className="mt-5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <span className="neon-text text-[clamp(2.6rem,4.6vw,3.8rem)] font-extrabold leading-none tracking-tight">{pkg.price}</span>
+            <span className="text-[0.8rem] font-medium uppercase tracking-[0.2em] text-white/75">MXN · {pkg.unit}</span>
           </p>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <ol className="mt-10 border-t border-white/15">
+        {/* La lista se estira para que ambos paquetes terminen a la misma altura y los botones queden alineados */}
+        <Reveal delay={0.08} className="mt-8 flex flex-1 flex-col">
+          <ol className="flex flex-1 flex-col border-t border-white/15">
             {pkg.items.map((t, i) => (
-              <li key={t} className="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-white/15 py-4 text-[1.02rem] leading-relaxed text-white/90 md:text-[1.1rem]">
-                <span className="eyebrow pt-[0.35em] tabular-nums !tracking-[0.12em]">{String(i + 1).padStart(2, "0")}</span>
+              <li key={t} className="grid flex-1 grid-cols-[2.25rem_1fr] items-center gap-3 border-b border-white/15 py-4 text-[1rem] leading-relaxed text-white/90 md:text-[1.05rem]">
+                <span className="eyebrow tabular-nums !tracking-[0.12em]">{String(i + 1).padStart(2, "0")}</span>
                 <span>{t}</span>
               </li>
             ))}
           </ol>
         </Reveal>
 
-        <div className="mt-10 flex flex-wrap gap-3">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-[1fr_1fr_auto]">
           <a
             href={whatsappLink(message(pkg))}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track("contact_click", { channel: "whatsapp", location: "plan", plan: pkg.name })}
-            className="inline-flex h-14 items-center gap-3 border border-neon bg-neon px-6 text-[0.78rem] font-bold uppercase tracking-[0.16em] text-black transition hover:bg-transparent hover:text-neon"
+            className="col-span-2 inline-flex h-14 items-center justify-center gap-3 border border-neon bg-neon px-6 text-[0.78rem] font-bold uppercase tracking-[0.16em] text-black transition hover:bg-transparent hover:text-neon sm:col-span-1"
           >
             <WA className="h-5 w-5" aria-hidden /> Contratar
           </a>
@@ -122,9 +123,9 @@ function Panel({ pkg, index }: { pkg: Package; index: number }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track("contact_click", { channel: "instagram", location: "plan", plan: pkg.name })}
-            className="inline-flex h-14 items-center gap-3 border border-white/35 px-6 text-[0.78rem] font-bold uppercase tracking-[0.16em] transition hover:border-neon hover:text-neon"
+            className="inline-flex h-14 items-center justify-center gap-2 border border-white/35 px-4 text-[0.78rem] font-bold uppercase tracking-[0.16em] transition hover:border-neon hover:text-neon"
           >
-            <IG className="h-5 w-5" aria-hidden /> Instagram <ArrowUpRight className="h-4 w-4" />
+            <IG className="h-5 w-5" aria-hidden /> Instagram
           </a>
           <SpecDialog pkg={pkg} />
         </div>
@@ -136,9 +137,9 @@ function Panel({ pkg, index }: { pkg: Package; index: number }) {
 export default function Services() {
   return (
     <section id="servicios" className="relative">
-      <div className="wrap section-y !pb-14 md:!pb-20">
+      <div className="wrap section-y !pb-10 md:!pb-14">
         <Eyebrow index="03">Servicios</Eyebrow>
-        <SplitTitle lines={["Your way", "with Greek"]} className="mt-6 text-[clamp(3.2rem,9.5vw,9rem)]" lineClassName={["", "text-neon"]} />
+        <SplitTitle lines={["Your way", "with Greek"]} className="t-section mt-5" lineClassName={["", "text-neon"]} />
       </div>
       <div className="grid border-y border-white/15 lg:grid-cols-2">
         {PACKAGES.map((p, i) => (
