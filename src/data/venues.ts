@@ -1,0 +1,18 @@
+export const VENUES = [
+  "Apotheke",
+  "LooLoo",
+  "Cincodoce",
+  "Standard Gold",
+  "Belive Acapulco",
+  "Hart",
+  "Florida Nightclub",
+  "Foro Escarabajo",
+  "Atenea Barcelona",
+  "La Cuspide",
+  "CLUBBING",
+  "OUTSIDE",
+  "Elements Sessions",
+  "School Of Beats",
+  "Casa Roma",
+  "+30 eventos privados",
+];
