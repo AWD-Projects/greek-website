@@ -2,8 +2,15 @@
 
 import { Reveal, SplitTitle } from "./Motion";
 import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
-import { SITE, SOCIALS } from "@/data/site";
+import { SITE, SOCIALS, whatsappLink } from "@/data/site";
 import { track } from "@/lib/analytics";
+
+const REASONS = [
+  { id: "colaboraciones", label: "Colaboraciones", text: "Hola Greek, me interesa una colaboración contigo." },
+  { id: "patrocinios", label: "Patrocinios", text: "Hola Greek, me interesa hablar de un patrocinio." },
+  { id: "club", label: "Contratación para club", text: "Hola Greek, quiero contratarte para un club o venue." },
+  { id: "privado", label: "Evento privado", text: "Hola Greek, quiero contratarte para un evento privado." },
+];
 
 /** Contacto directo por redes: sin formulario ni correo. */
 export default function Contact() {
@@ -44,6 +51,22 @@ export default function Contact() {
           </span>
           <ArrowUpRight className="h-7 w-7 text-white/60 transition group-hover:text-neon md:h-10 md:w-10" />
         </a>
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-4" aria-label="Escribir por WhatsApp según el motivo">
+          {REASONS.map((r) => (
+            <li key={r.id}>
+              <a
+                href={whatsappLink(r.text)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("contact_click", { channel: "whatsapp", location: "contact", reason: r.id })}
+                className="group flex min-h-12 items-center justify-between gap-3 border-b border-white/15 py-4 pr-2 text-base font-bold uppercase tracking-tight transition hover:border-neon hover:text-neon sm:pr-6"
+              >
+                {r.label}
+                <ArrowUpRight className="h-5 w-5 shrink-0 text-white/60 transition group-hover:text-neon" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </Reveal>
 
       <Reveal delay={0.1} className="mt-12 md:mt-16">
