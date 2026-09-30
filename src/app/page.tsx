@@ -12,10 +12,11 @@ import MobileBar from "@/components/MobileBar";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import { ScrollProgress } from "@/components/Motion";
+import { LoaderProvider } from "@/components/Loader";
 
 export default function Home() {
   return (
-    <>
+    <LoaderProvider>
       <SmoothScroll />
       <Cursor />
       <ScrollProgress />
@@ -32,6 +33,6 @@ export default function Home() {
       </main>
       <Footer />
       <MobileBar />
-    </>
+    </LoaderProvider>
   );
 }

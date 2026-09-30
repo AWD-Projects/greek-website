@@ -144,7 +144,7 @@ export default function Player() {
         </div>
         <div className="min-w-0 md:w-56 lg:w-72">
           <p className="truncate text-xl font-extrabold uppercase leading-none tracking-tight md:text-2xl">SHOT</p>
-          <p className="mt-1 truncate text-[0.7rem] font-medium uppercase tracking-[0.22em] text-white/70">DJ Greek · Kibbutz Records</p>
+          <p className="mt-1 truncate text-[0.75rem] font-medium uppercase tracking-[0.2em] text-white/70">DJ Greek · Kibbutz Records</p>
         </div>
 
         {/* Espectro: reacciona al audio en tiempo real */}

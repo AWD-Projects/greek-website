@@ -114,11 +114,36 @@ body::after {
 }
 @media (hover: none) { .duotone::after { display: none; } }
 
+html[data-intro="seen"] #intro { display: none; }
+
+/* Intro de carga: latido a 128 BPM (dos tiempos = 0.9375 s) y anillos en rombo, la forma del letrero */
+.intro-logo { animation: beat 0.9375s ease-in-out infinite; }
+@keyframes beat {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(47, 213, 16, 0.55)); }
+  50% { transform: scale(1.12); filter: drop-shadow(0 0 30px rgba(47, 213, 16, 0.95)); }
+}
+.intro-ring {
+  position: absolute;
+  height: 8rem;
+  width: 8rem;
+  border: 1px solid var(--neon);
+  opacity: 0;
+  animation: ring 1.875s cubic-bezier(0.2, 0.6, 0.2, 1) infinite;
+}
+@keyframes ring {
+  0% { transform: rotate(45deg) scale(0.7); opacity: 0.8; }
+  100% { transform: rotate(45deg) scale(2.3); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-ring { display: none; }
+  .intro-logo { animation: none; }
+}
+
 /* Difumina los bordes rectos de los retratos para que se fundan con el fondo */
 .feather {
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%), linear-gradient(to bottom, transparent 0, #000 14%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 90%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%);
   -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent 0, #000 16%), linear-gradient(to bottom, transparent 0, #000 14%);
+  mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 90%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%);
   mask-composite: intersect;
 }
 

@@ -5,7 +5,7 @@ export interface GalleryPhoto {
   alt: string;
 }
 
-// Fotos empaquetadas en el repo (antes se leían en vivo de un bucket de Supabase).
+// Fotos empaquetadas en el repo (public/images/gallery); no dependen de ningún servicio externo.
 export const GALLERY: GalleryPhoto[] = [
   { src: "/images/gallery/gallery-01.webp", w: 1500, h: 1000, alt: "Greek con lentes frente al letrero de neón Ω" },
   { src: "/images/gallery/gallery-02.webp", w: 768, h: 1020, alt: "Greek en cabina frente al letrero de neón Ω" },

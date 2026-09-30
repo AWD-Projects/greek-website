@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import NeonSign from "./NeonSign";
+import { useReady } from "./Loader";
 import Player from "./Player";
 import { ArrowUpRight, SOCIAL_ICONS } from "./Icons";
 import { SITE } from "@/data/site";
@@ -19,6 +20,7 @@ const PORTRAITS = [
 export default function Hero() {
   const [i, setI] = useState(0);
   const reduce = useReducedMotion();
+  const ready = useReady();
 
   useEffect(() => {
     if (reduce) return;
@@ -44,13 +46,13 @@ export default function Hero() {
         <motion.div style={reduce ? undefined : { y: textY }} className="relative z-10 lg:col-span-7 lg:row-start-1 lg:self-end">
           <h1 className="display text-[clamp(4.6rem,24vw,8rem)] leading-[0.8] lg:text-[clamp(5.5rem,10vw,9.5rem)]">
             <span className="mb-2 block text-[0.2em] font-semibold leading-none tracking-[0.34em] text-neon">
-              <motion.span className="inline-block" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: d(0.3), duration: d(0.8) }}>DJ</motion.span>
+              <motion.span className="inline-block" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ delay: d(0.3), duration: d(0.8) }}>DJ</motion.span>
             </span>
             <span className="block overflow-hidden pb-[0.06em] pt-[0.12em]">
               <motion.span
                 className="block"
                 initial={{ y: "110%" }}
-                animate={{ y: "0%" }}
+                animate={{ y: ready ? "0%" : "110%" }}
                 transition={{ delay: d(0.25), duration: d(1.1), ease: [0.16, 1, 0.3, 1] }}
               >
                 Greek
@@ -62,7 +64,7 @@ export default function Hero() {
         {/* B. Retrato sobre el letrero de neón (elemento firma) */}
         <div className="relative mx-auto mt-6 h-[min(92vw,54svh)] w-full max-w-[34rem] lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:h-[min(74svh,46rem)] lg:max-w-none">
           <motion.div style={reduce ? undefined : { rotate: signRotate }} className="absolute inset-0 grid place-items-center justify-items-start">
-            <NeonSign className="aspect-square h-[90%] max-w-[92%]" />
+            {ready && <NeonSign className="aspect-square h-[90%] max-w-[92%]" />}
           </motion.div>
           <motion.div style={reduce ? undefined : { y: portraitY }} className="feather pointer-events-none absolute inset-0">
             <AnimatePresence initial={false}>
@@ -92,7 +94,7 @@ export default function Hero() {
           <motion.p
             className="max-w-[24ch] lg:max-w-[38ch] text-[clamp(1.6rem,2.5vw,2.4rem)] font-light leading-[1.1] tracking-tight"
             initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 24 }}
             transition={{ delay: d(0.5), duration: d(1), ease: [0.16, 1, 0.3, 1] }}
           >
             No se trata de cumplir expectativas; se trata de <span className="font-extrabold text-neon">romperlas.</span> Eso es Greek.
@@ -100,7 +102,7 @@ export default function Hero() {
           <motion.p
             className="mt-4 max-w-[46ch] text-[0.98rem] leading-relaxed text-white/75 md:text-base"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: ready ? 1 : 0 }}
             transition={{ delay: d(0.75), duration: d(0.9) }}
           >
             Más que música, Greek es un concepto que transforma cada evento. Con un estilo &lsquo;Open Format&rsquo;, cada presentación es una experiencia única.
@@ -108,7 +110,7 @@ export default function Hero() {
           <motion.div
             className="mt-6 grid gap-3 sm:flex sm:flex-wrap"
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 16 }}
             transition={{ delay: d(0.95), duration: d(0.8) }}
           >
             <a

@@ -41,7 +41,7 @@ export default function Videos() {
         <SplitTitle lines={["Videos"]} className="t-section" />
         <Reveal className="flex flex-wrap items-center gap-x-8 gap-y-4">
           <div className="flex items-center gap-4">
-            <Image src="/images/videos/channel.webp" alt="Foto de perfil del canal de DJ Greek" width={56} height={56} className="h-14 w-14 rounded-full" />
+            <Image src="/images/videos/channel.webp" alt="Avatar del canal de YouTube de DJ Greek" width={56} height={56} className="h-14 w-14 rounded-full" />
             <p className="text-xl font-extrabold uppercase tracking-tight">{CHANNEL.name}</p>
           </div>
           <dl className="flex gap-8">
@@ -49,7 +49,7 @@ export default function Videos() {
               <div key={s.label}>
                 <dt className="sr-only">{s.label}</dt>
                 <dd className="text-2xl font-extrabold tabular-nums text-neon">{s.value}</dd>
-                <p aria-hidden className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/70">{s.label}</p>
+                <p aria-hidden className="text-[0.75rem] font-medium uppercase tracking-[0.2em] text-white/70">{s.label}</p>
               </div>
             ))}
           </dl>

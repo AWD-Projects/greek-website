@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ElementType, type ReactNode } from "react";
-import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -126,23 +126,28 @@ export function ScrollText({ text, className }: { text: string; className?: stri
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 55%"] });
   const words = text.split(" ");
+
+  // Una sola suscripción al scroll que escribe la opacidad de cada palabra directo en el DOM (sin re-render)
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (reduce || !ref.current) return;
+    const spans = ref.current.children;
+    const n = spans.length;
+    for (let i = 0; i < n; i++) {
+      const start = i / n;
+      const t = Math.min(1, Math.max(0, (p - start) / (1.5 / n)));
+      (spans[i] as HTMLElement).style.opacity = String(0.55 + 0.45 * t);
+    }
+  });
+
   return (
     <p ref={ref} className={className}>
       {words.map((w, i) => (
-        <Word key={i} w={w} i={i} n={words.length} p={scrollYProgress} off={!!reduce} />
+        <span key={i} style={reduce ? undefined : { opacity: 0.55 }}>
+          {w}
+          {i < words.length - 1 ? " " : ""}
+        </span>
       ))}
     </p>
-  );
-}
-
-function Word({ w, i, n, p, off }: { w: string; i: number; n: number; p: MotionValue<number>; off: boolean }) {
-  const start = i / n;
-  const opacity = useTransform(p, [start, Math.min(start + 1.5 / n, 1)], [0.55, 1]);
-  return (
-    <>
-      <motion.span style={off ? undefined : { opacity }}>{w}</motion.span>
-      {i < n - 1 ? " " : ""}
-    </>
   );
 }
 

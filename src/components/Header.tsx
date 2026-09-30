@@ -63,7 +63,7 @@ export default function Header() {
               onClick={go(n.id)}
               aria-current={active === n.id ? "true" : undefined}
               className={cn(
-                "relative py-2 text-[0.78rem] font-medium uppercase tracking-[0.2em] transition-colors hover:text-neon",
+                "relative py-3 text-[0.78rem] font-medium uppercase tracking-[0.2em] transition-colors hover:text-neon",
                 active === n.id ? "text-neon" : "text-white/80"
               )}
             >
