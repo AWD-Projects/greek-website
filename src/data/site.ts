@@ -21,13 +21,16 @@ export const SOCIALS = [
   { id: "soundcloud", label: "SoundCloud", handle: "greek06", href: "https://soundcloud.com/greek06" },
 ] as const;
 
+/** Sección de podcast oculta por ahora. Cambiar a true para mostrarla de nuevo (página, menú y datos estructurados). */
+export const SHOW_PODCAST = false;
+
 export const NAV = [
   { id: "sobre", label: "Sobre" },
   { id: "cabinas", label: "Cabinas" },
   { id: "servicios", label: "Servicios" },
   { id: "videos", label: "Videos" },
   { id: "galeria", label: "Galería" },
-  { id: "podcast", label: "Podcast" },
+  ...(SHOW_PODCAST ? [{ id: "podcast", label: "Podcast" }] : []),
 ] as const;
 
 export function whatsappLink(text: string) {

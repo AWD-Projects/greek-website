@@ -13,6 +13,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import { ScrollProgress } from "@/components/Motion";
 import { LoaderProvider } from "@/components/Loader";
+import { SHOW_PODCAST } from "@/data/site";
 
 export default function Home() {
   return (
@@ -28,7 +29,7 @@ export default function Home() {
         <Services />
         <Videos />
         <Gallery />
-        <Podcast />
+        {SHOW_PODCAST && <Podcast />}
         <Contact />
       </main>
       <Footer />

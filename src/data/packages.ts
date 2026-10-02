@@ -24,7 +24,7 @@ export const PACKAGES: Package[] = [
   {
     id: "exclusive",
     name: "GREEK EXCLUSIVE",
-    price: "$1,000",
+    price: "$1,500",
     unit: "por hora",
     image: "/images/pricing/privado.webp",
     imageAlt: "Greek en cabina frente al letrero de neón Ω en un evento privado",
@@ -47,9 +47,11 @@ export const PACKAGES: Package[] = [
         bullets: [
           { label: "Subwoofer y satélites", text: "2 unidades" },
           { label: "Parleds", text: "4 unidades" },
+          { label: "Iluminación móvil", text: "2 unidades" },
           { label: "Láser", text: "1 unidad (opcional)" },
-          { label: "Máquina de humo", text: "opcional (600 MXN adicionales)" },
+          { label: "Máquina de humo", text: "2 unidades" },
           { label: "Letrero neón Ω", text: "1 unidad" },
+          { label: "Mampara led iluminada", text: "1 unidad" },
           { label: "Controlador DJ", text: "1 unidad" },
           { text: "Mesa para DJ" },
         ],
@@ -57,8 +59,8 @@ export const PACKAGES: Package[] = [
       {
         title: "Tarifas",
         bullets: [
-          { text: "$1,000 por hora durante las primeras cinco horas" },
-          { text: "$1,400 por hora a partir de la sexta hora" },
+          { text: "$1,500 por hora durante el tiempo contratado inicialmente" },
+          { text: "$1,700 por hora adicional requerida (liquidada al momento)" },
         ],
       },
       {

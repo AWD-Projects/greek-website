@@ -1,4 +1,4 @@
-import { SITE, SOCIALS } from "@/data/site";
+import { SITE, SOCIALS, SHOW_PODCAST } from "@/data/site";
 
 export const SEO = {
   title: "DJ Greek | DJ para eventos privados y clubes en México",
@@ -73,13 +73,13 @@ export function jsonLd() {
         byArtist: { "@id": id("dj") },
         publisher: { "@type": "Organization", name: "Kibbutz Records" },
       },
-      {
+      ...(SHOW_PODCAST ? [{
         "@type": "PodcastSeries",
         "@id": id("podcast"),
         name: "Omega Sessions - Podcast",
         url: "https://open.spotify.com/show/66U9IcPCTGj6DiL3JvfxlQ",
         author: { "@id": id("dj") },
-      },
+      }] : []),
     ],
   };
 }
