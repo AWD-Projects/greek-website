@@ -1,6 +1,6 @@
 export const CHANNEL = {
   name: "DJ GREEK",
-  url: "https://youtube.com/@greek6353",
+  url: "https://www.youtube.com/@greektheofficial",
   stats: [
     { value: "40K", label: "Suscriptores" },
     { value: "140", label: "Videos" },

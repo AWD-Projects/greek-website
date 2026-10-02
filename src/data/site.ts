@@ -14,9 +14,9 @@ export const SITE = {
 
 export const SOCIALS = [
   { id: "instagram", label: "Instagram", handle: "@greek.06", href: "https://www.instagram.com/greek.06" },
-  { id: "youtube", label: "YouTube", handle: "@greek6353", href: "https://youtube.com/@greek6353" },
-  { id: "spotify", label: "Spotify", handle: "DJ Greek", href: "https://open.spotify.com/intl-es/artist/71KNSWBRFRbFOLnASreU9K" },
-  { id: "apple", label: "Apple Music", handle: "The Greek Ω", href: "https://music.apple.com/mx/artist/the-greek-%CF%89/1553075862" },
+  { id: "youtube", label: "YouTube", handle: "@greektheofficial", href: "https://www.youtube.com/@greektheofficial" },
+  { id: "spotify", label: "Spotify", handle: "DJ Greek", href: "https://open.spotify.com/artist/74z0JRhy9VEP3Ll3L7cdHC" },
+  { id: "apple", label: "Apple Music", handle: "Greek", href: "https://music.apple.com/us/artist/greek/1469731519" },
   { id: "tiktok", label: "TikTok", handle: "@greektheofficial", href: "https://www.tiktok.com/@greektheofficial" },
   { id: "soundcloud", label: "SoundCloud", handle: "greek06", href: "https://soundcloud.com/greek06" },
 ] as const;

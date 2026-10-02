@@ -79,6 +79,12 @@ export function jsonLd() {
         byArtist: { "@id": id("dj") },
         publisher: { "@type": "Organization", name: "Kibbutz Records" },
       },
+      {
+        "@type": "MusicRecording",
+        "@id": id("whistle"),
+        name: "Whistle",
+        byArtist: { "@id": id("dj") },
+      },
       ...(SHOW_PODCAST ? [{
         "@type": "PodcastSeries",
         "@id": id("podcast"),
