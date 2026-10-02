@@ -5,7 +5,7 @@ const FACTS = [
   { k: "Estilo", v: "House · Open Format" },
   { k: "Formación", v: "Virtuality Audio · Beat System" },
   { k: "Mentores", v: "Bass Kleph · Travis Emmons" },
-  { k: "Lanzamiento", v: "SHOT · Kibbutz Records, Portugal" },
+  { k: "Lanzamientos", v: "Disco Danz · Shot · Whistle" },
   { k: "Trayectoria", v: "Más de 10 años en eventos privados y clubes" },
 ];
 
