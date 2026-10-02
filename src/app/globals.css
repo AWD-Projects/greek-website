@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Nivel de audio (0..1) que el reproductor escribe en :root mientras suena SHOT */
+/* Nivel de audio (0..1) que el reproductor escribe en :root mientras suena la canción */
 @property --level { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --breathe { syntax: "<number>"; inherits: true; initial-value: 1; }
 

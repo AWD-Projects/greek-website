@@ -33,7 +33,7 @@ function Tube({ stroke, width, filter, opacity, delayBase, reduce }: {
 
 /**
  * Elemento firma: el letrero Ω de las fotos de Greek, dibujado como tubo de neón.
- * Se "enciende" al cargar y, con SHOT sonando, su brillo sigue el nivel de audio (--level).
+ * Se "enciende" al cargar y, con la canción sonando, su brillo sigue el nivel de audio (--level).
  */
 export default function NeonSign({ className }: { className?: string }) {
   const reduce = useReducedMotion();

@@ -16,7 +16,7 @@ function fmt(t: number) {
 
 type AC = typeof AudioContext;
 
-/** Reproductor de SHOT. Mientras suena, escribe el nivel de graves en --level (:root). */
+/** Reproductor de DISCO DANZ. Mientras suena, escribe el nivel de graves en --level (:root). */
 export default function Player() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const ctxRef = useRef<AudioContext | null>(null);
@@ -99,7 +99,7 @@ export default function Player() {
     a.play().catch(() => {});
     if (!playedOnce.current) {
       playedOnce.current = true;
-      track("play_shot");
+      track("play_track");
     }
   };
 
@@ -136,14 +136,14 @@ export default function Player() {
   const pct = dur ? (time / dur) * 100 : 0;
 
   return (
-    <div className="relative z-30 border-t border-white/15 bg-black/80" role="group" aria-label="Reproductor de SHOT">
-      <audio ref={audioRef} src="/audio/shot.mp3" preload="none" />
+    <div className="relative z-30 border-t border-white/15 bg-black/80" role="group" aria-label="Reproductor de DISCO DANZ">
+      <audio ref={audioRef} src="/audio/disco-danz.mp3" preload="none" />
       <div className="wrap flex items-center gap-4 py-4 md:gap-8 md:py-5">
         <div className="relative h-14 w-14 shrink-0 overflow-hidden md:h-16 md:w-16">
-          <Image src="/images/brand/shot-cover.webp" alt="Portada de SHOT, sencillo de DJ Greek" fill sizes="64px" className="object-cover" />
+          <Image src="/images/brand/disco-danz-cover.webp" alt="Portada de DISCO DANZ, de DJ Greek" fill sizes="64px" className="object-cover" />
         </div>
         <div className="min-w-0 md:w-56 lg:w-72">
-          <p className="truncate text-xl font-extrabold uppercase leading-none tracking-tight md:text-2xl">SHOT</p>
+          <p className="truncate text-xl font-extrabold uppercase leading-none tracking-tight md:text-2xl">DISCO DANZ</p>
           <p className="mt-1 truncate text-[0.75rem] font-medium uppercase tracking-[0.2em] text-white/70">DJ Greek · Kibbutz Records</p>
         </div>
 
@@ -168,7 +168,7 @@ export default function Player() {
         <button
           type="button"
           onClick={toggle}
-          aria-label={playing ? "Pausar SHOT" : "Reproducir SHOT"}
+          aria-label={playing ? "Pausar DISCO DANZ" : "Reproducir DISCO DANZ"}
           data-cursor={playing ? "PAUSA" : "PLAY"}
           className="ml-auto grid h-14 w-14 shrink-0 place-items-center border border-neon bg-neon text-black transition hover:bg-transparent hover:text-neon sm:ml-0 md:h-16 md:w-16"
         >

@@ -30,7 +30,7 @@ export default function Venues() {
   const half = Math.ceil(VENUES.length / 2);
   const cols = [VENUES.slice(0, half), VENUES.slice(half)];
   return (
-    <section id="cabinas" className="section-y wrap relative border-y border-white/10 bg-ink-2">
+    <section id="trayectoria" className="section-y wrap relative border-y border-white/10 bg-ink-2">
       <SplitTitle lines={["Donde", "ha sonado"]} className="t-section" lineClassName={["", "text-neon"]} />
       <div className="section-gap grid gap-x-16 md:grid-cols-2">
         {cols.map((col, c) => (

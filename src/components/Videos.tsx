@@ -10,15 +10,26 @@ import { track } from "@/lib/analytics";
 
 function Thumb({ i, onOpen }: { i: number; onOpen: (i: number) => void }) {
   const v = VIDEOS[i];
+  const [failed, setFailed] = useState(false);
   return (
     <button
       type="button"
       onClick={() => onOpen(i)}
       data-cursor="PLAY"
       aria-label={`Reproducir video ${i + 1} de DJ Greek`}
-      className="duotone group relative block aspect-video w-full overflow-hidden text-left"
+      className="duotone group relative block aspect-video w-full overflow-hidden bg-ink-2 text-left"
     >
-      <Image src={v.thumb} alt={v.alt} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover group-hover:scale-[1.04]" />
+      {!failed && (
+        <Image
+          src={v.thumb}
+          alt={v.alt}
+          fill
+          sizes="(min-width: 640px) 50vw, 100vw"
+          unoptimized={v.thumb.startsWith("http")}
+          onError={() => setFailed(true)}
+          className="object-cover group-hover:scale-[1.04]"
+        />
+      )}
       <span aria-hidden className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
       <span className="absolute bottom-4 left-4 z-20 flex items-center gap-3">
         <span aria-hidden className="grid h-11 w-11 place-items-center border border-neon bg-black/50 text-neon transition group-hover:bg-neon group-hover:text-black">

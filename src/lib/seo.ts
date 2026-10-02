@@ -26,7 +26,7 @@ export function jsonLd() {
         url: SITE.url,
         image: `${SITE.url}/images/brand/logo.webp`,
         description:
-          "DJ de House y Open Format para eventos privados y clubes, con más de seis años de experiencia.",
+          "DJ de House y Open Format para eventos privados y clubes, con más de diez años de experiencia.",
         knowsAbout: ["House", "Open Format", "DJ para eventos privados", "DJ para clubes"],
         sameAs: SOCIALS.map((s) => s.href),
       },
@@ -65,6 +65,12 @@ export function jsonLd() {
         serviceType: "DJ para clubes",
         description: "Sets para clubes que mantienen la pista de baile llena toda la noche.",
         provider: { "@id": id("dj") },
+      },
+      {
+        "@type": "MusicRecording",
+        "@id": id("disco-danz"),
+        name: "DISCO DANZ",
+        byArtist: { "@id": id("dj") },
       },
       {
         "@type": "MusicRecording",

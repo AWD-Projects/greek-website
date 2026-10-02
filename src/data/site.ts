@@ -26,7 +26,7 @@ export const SHOW_PODCAST = false;
 
 export const NAV = [
   { id: "sobre", label: "Sobre" },
-  { id: "cabinas", label: "Cabinas" },
+  { id: "trayectoria", label: "Trayectoria" },
   { id: "servicios", label: "Servicios" },
   { id: "videos", label: "Videos" },
   { id: "galeria", label: "Galería" },

@@ -14,5 +14,5 @@ export const VENUES = [
   "Elements Sessions",
   "School Of Beats",
   "Casa Roma",
-  "+30 eventos privados",
+  "+70 eventos privados",
 ];
