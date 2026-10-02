@@ -1,0 +1,180 @@
+@import "lenis/dist/lenis.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nivel de audio (0..1) que el reproductor escribe en :root mientras suena la canción */
+@property --level { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --breathe { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+:root {
+  --neon: #2fd510;
+  --neon-alt: #32cd32;
+  --line: rgba(255, 255, 255, 0.14);
+  --pad: 1.25rem;
+}
+@media (min-width: 768px) { :root { --pad: 2.5rem; } }
+
+html { background: #000; color-scheme: dark; }
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-jost), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* Grano de película, muy tenue, sobre toda la página */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+::selection { background: var(--neon); color: #000; }
+
+:focus-visible { outline: 2px solid var(--neon); outline-offset: 3px; }
+
+.section-y { padding-block: 4.5rem; }
+@media (min-width: 768px) { .section-y { padding-block: 6rem; } }
+@media (min-width: 1024px) { .section-y { padding-block: 7.5rem; } }
+
+/* Una sola escala de títulos de sección y de espacio bajo ellos */
+.t-section { font-size: clamp(2.6rem, 6.4vw, 5.6rem); }
+.section-gap { margin-top: 2.5rem; }
+@media (min-width: 768px) { .section-gap { margin-top: 3.5rem; } }
+
+.wrap { padding-inline: var(--pad); }
+
+/* Etiquetas de sección: pequeñas, anchas, en mayúsculas */
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--neon);
+}
+
+.display {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+}
+
+/* Texto "apagado": relleno tenue (el contorno mostraría los trazos superpuestos de la variable) */
+.dim-text { color: rgba(255, 255, 255, 0.52); }
+/* Neón que se desvanece hacia abajo (footer) */
+.fade-neon {
+  color: transparent;
+  background: linear-gradient(to bottom, var(--neon) 0%, rgba(47, 213, 16, 0.55) 45%, rgba(47, 213, 16, 0) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Texto neón: tubo encendido (solo para elementos clave) */
+.neon-text {
+  color: #eaffe3;
+  text-shadow: 0 0 4px #fff, 0 0 14px var(--neon), 0 0 38px var(--neon);
+}
+
+/* Latido del tubo de neón cuando no suena nada */
+.neon-breathe { animation: breathe 4.5s ease-in-out infinite; }
+@keyframes breathe {
+  0%, 100% { --breathe: 0.78; }
+  50% { --breathe: 1; }
+}
+
+/* Fotos en duotono verde; el color real aparece al pasar el cursor (o siempre en táctil) */
+.duotone { position: relative; isolation: isolate; background: #0a0a0a; }
+.duotone img { transition: filter 0.6s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--neon);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .duotone img { filter: grayscale(1) contrast(1.15) brightness(1.05); }
+  .duotone:hover img, .duotone:focus-visible img, .duotone[data-active="true"] img { filter: none; }
+  .duotone:hover::after, .duotone:focus-visible::after, .duotone[data-active="true"]::after { opacity: 0; }
+}
+@media (hover: none) { .duotone::after { display: none; } }
+
+html[data-intro="seen"] #intro { display: none; }
+
+/* Intro de carga: latido a 128 BPM (dos tiempos = 0.9375 s) y anillos en rombo, la forma del letrero */
+.intro-logo { animation: beat 0.9375s ease-in-out infinite; }
+@keyframes beat {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(47, 213, 16, 0.55)); }
+  50% { transform: scale(1.12); filter: drop-shadow(0 0 30px rgba(47, 213, 16, 0.95)); }
+}
+.intro-ring {
+  position: absolute;
+  height: 8rem;
+  width: 8rem;
+  border: 1px solid var(--neon);
+  opacity: 0;
+  animation: ring 1.875s cubic-bezier(0.2, 0.6, 0.2, 1) infinite;
+}
+@keyframes ring {
+  0% { transform: rotate(45deg) scale(0.7); opacity: 0.8; }
+  100% { transform: rotate(45deg) scale(2.3); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-ring { display: none; }
+  .intro-logo { animation: none; }
+}
+
+/* Difumina los bordes rectos de los retratos para que se fundan con el fondo */
+.feather {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 90%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 90%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%);
+  mask-composite: intersect;
+}
+
+/* Barra de rango del reproductor */
+input[type="range"].scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 24px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"].scrub::-webkit-slider-runnable-track {
+  height: 2px;
+  background: linear-gradient(to right, var(--neon) var(--p, 0%), rgba(255, 255, 255, 0.22) var(--p, 0%));
+}
+input[type="range"].scrub::-moz-range-track {
+  height: 2px;
+  background: linear-gradient(to right, var(--neon) var(--p, 0%), rgba(255, 255, 255, 0.22) var(--p, 0%));
+}
+input[type="range"].scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px; margin-top: -5px;
+  background: var(--neon); border-radius: 0; border: 0;
+  box-shadow: 0 0 12px var(--neon);
+}
+input[type="range"].scrub::-moz-range-thumb {
+  width: 12px; height: 12px; background: var(--neon); border-radius: 0; border: 0;
+  box-shadow: 0 0 12px var(--neon);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-breathe { animation: none; --breathe: 1; }
+  * { scroll-behavior: auto !important; }
+}

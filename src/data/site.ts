@@ -1,0 +1,38 @@
+export const SITE = {
+  name: "DJ Greek",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://djgreek.mx",
+  tagline: "No se trata de cumplir expectativas; se trata de romperlas. Eso es Greek.",
+  instagramHandle: "@greek.06",
+  instagram: "https://www.instagram.com/greek.06",
+  // Abre el chat directo de Instagram con Greek
+  instagramDm: "https://ig.me/m/greek.06",
+  whatsappNumber: "525548575825",
+  whatsapp: "https://wa.me/525548575825",
+  privacyUrl: "https://amoxtli.tech/",
+  builderUrl: "https://amoxtli.tech/",
+} as const;
+
+export const SOCIALS = [
+  { id: "instagram", label: "Instagram", handle: "@greek.06", href: "https://www.instagram.com/greek.06" },
+  { id: "youtube", label: "YouTube", handle: "@greektheofficial", href: "https://www.youtube.com/@greektheofficial" },
+  { id: "spotify", label: "Spotify", handle: "DJ Greek", href: "https://open.spotify.com/artist/74z0JRhy9VEP3Ll3L7cdHC" },
+  { id: "apple", label: "Apple Music", handle: "Greek", href: "https://music.apple.com/us/artist/greek/1469731519" },
+  { id: "tiktok", label: "TikTok", handle: "@greektheofficial", href: "https://www.tiktok.com/@greektheofficial" },
+  { id: "soundcloud", label: "SoundCloud", handle: "greek06", href: "https://soundcloud.com/greek06" },
+] as const;
+
+/** Sección de podcast oculta por ahora. Cambiar a true para mostrarla de nuevo (página, menú y datos estructurados). */
+export const SHOW_PODCAST = false;
+
+export const NAV = [
+  { id: "sobre", label: "Sobre" },
+  { id: "trayectoria", label: "Trayectoria" },
+  { id: "servicios", label: "Servicios" },
+  { id: "videos", label: "Videos" },
+  { id: "galeria", label: "Galería" },
+  ...(SHOW_PODCAST ? [{ id: "podcast", label: "Podcast" }] : []),
+] as const;
+
+export function whatsappLink(text: string) {
+  return `${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
+}
