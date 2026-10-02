@@ -137,7 +137,6 @@ export default function Gallery() {
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden><path d="M9 5l7 7-7 7" /></svg>
               </button>
             </div>
-            <p className="wrap shrink-0 py-4 text-center text-sm text-white/75">{photo?.alt}</p>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
