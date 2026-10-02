@@ -1,0 +1,172 @@
+name: CI/CD
+
+# Calidad en cada cambio. Despliegue a dev (preview) al subir a `dev` y a producción al subir a `main`.
+# Los despliegues solo corren si están configurados los secretos de Vercel (ver README, sección Despliegues).
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  VERCEL_CLI_VERSION: 62.2.0
+
+jobs:
+  quality:
+    name: Lint, tipos y build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+
+  deploy-dev:
+    name: Deploy a dev (preview)
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: dev
+      url: ${{ steps.deploy.outputs.url }}
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Verificar secretos de Vercel
+        id: gate
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Deploy omitido: faltan VERCEL_TOKEN, VERCEL_ORG_ID o VERCEL_PROJECT_ID."
+            echo "### Deploy a dev omitido" >> "$GITHUB_STEP_SUMMARY"
+            echo "Faltan secretos de Vercel. Ver README, sección Despliegues." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.enabled == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Instalar Vercel CLI
+        if: steps.gate.outputs.enabled == 'true'
+        run: npm install --global vercel@${{ env.VERCEL_CLI_VERSION }}
+      - name: Traer configuración del proyecto (preview)
+        if: steps.gate.outputs.enabled == 'true'
+        run: vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+      - name: Build
+        if: steps.gate.outputs.enabled == 'true'
+        run: vercel build --token="$VERCEL_TOKEN"
+      - name: Deploy
+        id: deploy
+        if: steps.gate.outputs.enabled == 'true'
+        run: |
+          url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN" \
+            --meta githubCommitSha="$GITHUB_SHA" --meta githubActor="$GITHUB_ACTOR" --meta githubRef="$GITHUB_REF_NAME")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Deploy a dev"
+            echo "- URL: $url"
+            echo "- Commit: \`${GITHUB_SHA::7}\`"
+            echo "- Autor: $GITHUB_ACTOR"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-prod:
+    name: Deploy a producción
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Con revisores requeridos en este entorno, el deploy espera aprobación manual.
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+    permissions:
+      contents: read
+      deployments: write
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      PROD_URL: ${{ vars.PROD_URL }}
+    steps:
+      - name: Verificar secretos de Vercel
+        id: gate
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Deploy omitido: faltan VERCEL_TOKEN, VERCEL_ORG_ID o VERCEL_PROJECT_ID."
+            echo "### Deploy a producción omitido" >> "$GITHUB_STEP_SUMMARY"
+            echo "Faltan secretos de Vercel. Ver README, sección Despliegues." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.enabled == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Instalar Vercel CLI
+        if: steps.gate.outputs.enabled == 'true'
+        run: npm install --global vercel@${{ env.VERCEL_CLI_VERSION }}
+      - name: Traer configuración del proyecto (production)
+        if: steps.gate.outputs.enabled == 'true'
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - name: Build
+        if: steps.gate.outputs.enabled == 'true'
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+      - name: Deploy
+        id: deploy
+        if: steps.gate.outputs.enabled == 'true'
+        run: |
+          url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" \
+            --meta githubCommitSha="$GITHUB_SHA" --meta githubActor="$GITHUB_ACTOR" --meta githubRef="$GITHUB_REF_NAME")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Deploy a producción"
+            echo "- URL: $url"
+            echo "- Commit: \`${GITHUB_SHA::7}\`"
+            echo "- Autor: $GITHUB_ACTOR"
+          } >> "$GITHUB_STEP_SUMMARY"
+      # Prueba rápida del sitio publicado. Define la variable PROD_URL (ej. https://djgreek.mx) para activarla.
+      - name: Verificar sitio publicado
+        if: steps.gate.outputs.enabled == 'true' && env.PROD_URL != ''
+        run: |
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s -o /tmp/home.html -w "%{http_code}" "$PROD_URL/")
+            if [ "$code" = "200" ] && grep -qi "<title>DJ Greek" /tmp/home.html; then
+              echo "Sitio responde 200 con el título esperado."
+              echo "- Verificación: OK ($PROD_URL)" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            echo "Intento $i: HTTP $code. Reintentando..."; sleep 10
+          done
+          echo "- Verificación: FALLÓ ($PROD_URL)" >> "$GITHUB_STEP_SUMMARY"
+          exit 1
