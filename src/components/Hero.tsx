@@ -12,9 +12,9 @@ import { SITE } from "@/data/site";
 import { track } from "@/lib/analytics";
 
 const PORTRAITS = [
-  { src: "/images/hero/hero-1.webp", alt: "Retrato de Greek con audífonos bajo luz verde neón" },
-  { src: "/images/hero/hero-3.webp", alt: "Greek mirando de lado con lentes de sol bajo luz verde neón" },
-  { src: "/images/hero/hero-2.webp", alt: "Greek ajustándose los lentes de sol junto a otra toma de espaldas, en verde neón" },
+  { src: "/images/hero/hero-1.webp", alt: "Retrato de Greek con lentes de sol, sonriendo y sacando la lengua bajo luz verde neón" },
+  { src: "/images/hero/hero-3.webp", alt: "Greek bajándose los lentes de sol con ambas manos, mirando a cámara bajo luz verde neón" },
+  { src: "/images/hero/hero-2.webp", alt: "Dos tomas de Greek con lentes de sol, lado a lado, en verde neón" },
 ];
 
 export default function Hero() {

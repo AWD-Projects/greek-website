@@ -27,7 +27,7 @@ export const PACKAGES: Package[] = [
     price: "$1,500",
     unit: "por hora",
     image: "/images/pricing/privado.webp",
-    imageAlt: "Greek en cabina frente al letrero de neón Ω en un evento privado",
+    imageAlt: "Público en una fiesta frente a la cabina, con el letrero de neón Ω al fondo bajo luces azules",
     items: [
       "Ideal para reuniones exclusivas, o celebraciones privadas.",
       "Greek se encarga de todo: música, luces y sonido para crear una atmósfera personalizada.",

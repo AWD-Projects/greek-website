@@ -19,10 +19,10 @@ export default function About() {
             <ParallaxFrame className="duotone aspect-square w-full md:aspect-[16/10] lg:aspect-[4/5]" amount={7}>
               <Image
                 src="/images/about/greek.webp"
-                alt="Retrato de Greek con lentes de sol y audífonos al cuello"
+                alt="Retrato de Greek con lentes de sol ovalados y gesto serio, en verde neón"
                 fill
                 sizes="(min-width: 768px) 42vw, 100vw"
-                className="object-cover"
+                className="object-cover object-top"
               />
             </ParallaxFrame>
           </div>
