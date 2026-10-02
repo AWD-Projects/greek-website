@@ -50,8 +50,8 @@ export default function Header() {
       )}
     >
       <div className="wrap flex h-16 items-center justify-between md:h-[4.5rem]">
-        <a href="#inicio" onClick={go("inicio")} className="flex items-center gap-3" aria-label="DJ Greek, ir al inicio">
-          <Image src="/images/brand/logo.webp" alt="" width={48} height={48} className="h-10 w-10 rounded-full md:h-12 md:w-12" priority />
+        <a href="#inicio" onClick={go("inicio")} className="flex items-center gap-2.5" aria-label="DJ Greek, ir al inicio">
+          <Image src="/images/brand/omega.webp" alt="" width={206} height={194} className="h-[1.15rem] w-auto md:h-[1.3rem]" priority />
           <span className="whitespace-nowrap text-2xl font-extrabold uppercase tracking-tight text-neon md:text-[1.7rem]">DJ Greek</span>
         </a>
 
