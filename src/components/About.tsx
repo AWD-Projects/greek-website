@@ -33,7 +33,7 @@ export default function About() {
 
           <ScrollText
             className="mt-8 max-w-[60ch] text-[1.02rem] leading-[1.75] text-white md:mt-10 md:text-[1.12rem]"
-            text="Greek, con su estilo en el House y la versatilidad del ‘Open Format’, se destaca como un DJ capaz de crear experiencias memorables y adaptarse a cualquier evento. Su distintivo verde neón evoca energía y renovación, electrificando cada ambiente y dejando una huella inolvidable. Formado en prestigiosas instituciones como Virtuality Audio y Beat System, y guiado por mentores de renombre como Bass Kleph y Travis Emmons, Greek consolida su lugar en la escena. Su lanzamiento internacional Shot con Kibbutz Records en Portugal refuerza su impacto global. Con más de diez años de experiencia en eventos privados y clubes, Greek transforma cada escenario en un espectáculo único, donde su energía y el verde neón invitan a disfrutar al máximo."
+            text="Greek combina la energía del House con la versatilidad del Open Format. Con una sólida trayectoria, formación integral y presencia internacional gracias a su lanzamiento “Shot” con Kibbutz Records de Portugal, proyecta una identidad marcada por el verde neón, la energía y su conexión con el público."
           />
 
           <Reveal className="mt-10 md:mt-12">
@@ -49,7 +49,7 @@ export default function About() {
 
           <Reveal className="mt-10 max-w-xl md:mt-14">
             <p className="text-[clamp(1.3rem,2.1vw,1.85rem)] font-light leading-[1.22] tracking-tight">
-              Con más de diez años de trayectoria y un magnetismo único, Greek es para quienes buscan algo extraordinario. Una experiencia inolvidable.
+              Greek es para quienes buscan algo extraordinario. Una experiencia inolvidable.
             </p>
           </Reveal>
         </div>
