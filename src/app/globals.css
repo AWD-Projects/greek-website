@@ -21,7 +21,7 @@ body {
   margin: 0;
   background: #000;
   color: #fff;
-  font-family: var(--font-jost), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
@@ -67,6 +67,7 @@ body::after {
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.03em;
+  word-spacing: 0.1em;
   line-height: 0.88;
 }
 
@@ -178,3 +179,7 @@ input[type="range"].scrub::-moz-range-thumb {
   .neon-breathe { animation: none; --breathe: 1; }
   * { scroll-behavior: auto !important; }
 }
+
+/* Outfit cierra mucho el espacio entre palabras con tracking negativo */
+.tracking-tight { word-spacing: 0.12em; }
+.tracking-tight.font-light { word-spacing: 0; }

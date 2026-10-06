@@ -4,9 +4,9 @@ import "./globals.css";
 import { SITE, SOCIALS } from "@/data/site";
 import { SEO, isProduction, jsonLd } from "@/lib/seo";
 
-const jost = localFont({
-  src: "./fonts/Jost-Variable.woff2",
-  variable: "--font-jost",
+const outfit = localFont({
+  src: "./fonts/Outfit-Variable.woff2",
+  variable: "--font-sans",
   weight: "100 900",
   display: "swap",
 });
@@ -51,7 +51,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-MX" className={jost.variable} suppressHydrationWarning>
+    <html lang="es-MX" className={outfit.variable} suppressHydrationWarning>
       <body>
         <script
           dangerouslySetInnerHTML={{
