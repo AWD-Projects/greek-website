@@ -45,10 +45,10 @@ export default function Hero() {
         {/* A. Nombre */}
         <motion.div style={reduce ? undefined : { y: textY }} className="relative z-10 lg:col-span-7 lg:row-start-1 lg:self-end">
           <h1 className="display text-[clamp(4.6rem,24vw,8rem)] leading-[0.8] lg:text-[clamp(5.5rem,10vw,9.5rem)]">
-            <span className="mb-2 block text-[0.2em] font-semibold leading-none tracking-[0.34em] text-neon">
+            <span className="mb-0 block text-[0.3em] font-extrabold leading-none tracking-[0.04em] text-neon">
               <motion.span className="inline-block" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ delay: d(0.3), duration: d(0.8) }}>DJ</motion.span>
             </span>
-            <span className="block overflow-hidden pb-[0.06em] pt-[0.12em]">
+            <span className="block overflow-hidden pb-[0.06em] pt-[0.04em]">
               <motion.span
                 className="block"
                 initial={{ y: "110%" }}
