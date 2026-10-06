@@ -14,7 +14,7 @@ const config: Config = {
         neon: { DEFAULT: "#2FD510", alt: "#32CD32", deep: "#1a8a09" },
         ink: { DEFAULT: "#000000", 2: "#0a0a0a", 3: "#121212" },
       },
-      fontFamily: { sans: ["var(--font-jost)", "system-ui", "sans-serif"] },
+      fontFamily: { sans: ["var(--font-sans)", "system-ui", "sans-serif"] },
       letterSpacing: { tightest: "-0.045em", stage: "0.32em" },
       borderRadius: { none: "0" },
       keyframes: {

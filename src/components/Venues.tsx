@@ -11,13 +11,13 @@ function Row({ name, index }: { name: string; index: number }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 88%", "start 52%"] });
   const clip = useTransform(scrollYProgress, [0, 1], ["inset(0 100% 0 0)", "inset(0 0% 0 0)"]);
   return (
-    <li ref={ref} className="group relative flex items-baseline gap-4 border-b border-white/15 py-3 md:gap-6 md:py-3.5">
+    <li ref={ref} className="group relative flex items-baseline gap-4 border-b border-white/15 py-2.5 md:gap-6 md:py-3.5">
       <span className="relative block min-w-0">
-        <span className="display dim-text block text-[clamp(1.45rem,2.9vw,2.9rem)] leading-[1.06]">{name}</span>
+        <span className="display dim-text block text-[clamp(0.95rem,4.4vw,1.35rem)] md:text-[clamp(1.45rem,2.9vw,2.9rem)] leading-[1.06]">{name}</span>
         <motion.span
           aria-hidden
           style={{ clipPath: clip }}
-          className="display absolute inset-0 block text-[clamp(1.45rem,2.9vw,2.9rem)] leading-[1.06] text-neon transition-[text-shadow] duration-300 group-hover:[text-shadow:0_0_24px_rgba(47,213,16,.6)]"
+          className="display absolute inset-0 block text-[clamp(0.95rem,4.4vw,1.35rem)] md:text-[clamp(1.45rem,2.9vw,2.9rem)] leading-[1.06] text-neon transition-[text-shadow] duration-300 group-hover:[text-shadow:0_0_24px_rgba(47,213,16,.6)]"
         >
           {name}
         </motion.span>
@@ -32,7 +32,7 @@ export default function Venues() {
   return (
     <section id="trayectoria" className="section-y wrap relative border-y border-white/10 bg-ink-2">
       <SplitTitle lines={["Donde", "ha sonado"]} className="t-section" lineClassName={["", "text-neon"]} />
-      <div className="section-gap grid gap-x-16 md:grid-cols-2">
+      <div className="section-gap grid grid-cols-2 gap-x-5 md:gap-x-16">
         {cols.map((col, c) => (
           <ol key={c} className="border-t border-white/15">
             {col.map((name, i) => (
